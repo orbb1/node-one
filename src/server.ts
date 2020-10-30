@@ -1,11 +1,21 @@
-const express = require('express')
-const app = express()
-const path = require('path')
+import express, { Express } from 'express';
+import path from 'path';
 
-app.set('views', path.join(__dirname, '/views'))
+const app: Express = express();
 
-app.get('/', (req: any, res: any) => {
-    res.render('index.ejs')
-})
+app.set('views', path.join(__dirname, '/views'));
+app.set('view-engine', 'ejs');
 
-app.listen(3000)
+app.get('/', (req, res) => {
+  res.render('index.ejs', { name: 'World' });
+});
+
+app.get('/login', (req, res) => {
+  res.render('login.ejs');
+});
+
+app.get('/register', (req, res) => {
+  res.render('register.ejs');
+});
+
+app.listen(3000);
