@@ -51,6 +51,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+app.use(express.static(__dirname));
 
 app.get('/', checkAuth, (req, res) => {
   res.render('index.ejs', { name: 'World' });
