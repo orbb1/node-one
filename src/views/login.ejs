@@ -16,17 +16,17 @@
             <%= messages.error -%>
           </p>
         <% } %>
-            
+        <p class="form-info">* - required</p>
         <form class="login-form" action="/login" method="POST">
           <div class="form-row">
             <label class="form-row-label" for="email-input">
-              E-mail
+              E-mail*
             </label>
             <input id="email-input" type="email" name="email" />
           </div>
           <div class="form-row">
             <label class="form-row-label" for="password-input">
-              Password
+              Password*
             </label>
             <input id="password-input" type="password" name="password" />
           </div>

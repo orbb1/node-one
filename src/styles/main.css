@@ -72,3 +72,7 @@ body {
 .login-form .form-row-label {
   display: block;
 }
+
+.form-info {
+  font-size: 0.8rem;
+}
