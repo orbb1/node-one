@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <%- include('partials/head') %>
-</head>
+<%- include('partials/head') %>
 
 <body>
+  <main class="page">
 
-  <%- include('partials/nav') %>
+    <%- include('partials/nav') %>
 
-  <section>
-    <h1>Login</h1>
-    <% if (messages.error) {%>
-      <%= messages.error %>
-    <% } %>  
-    <form action="/login" method="POST">
-      <label>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Login</button>
-    </form>
-  </section>
+    <section class="login-section">
+      <div class="login-form-container">
+        <h1>Login form</h1>
+        <% if (messages.error) {%>
+          <p class="error-message">
+            <%= messages.error -%>
+          </p>
+        <% } %>
+            
+        <form class="login-form" action="/login" method="POST">
+          <div class="form-row">
+            <label class="form-row-label" for="email-input">
+              E-mail
+            </label>
+            <input id="email-input" type="email" name="email" />
+          </div>
+          <div class="form-row">
+            <label class="form-row-label" for="password-input">
+              Password
+            </label>
+            <input id="password-input" type="password" name="password" />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </section>
 
-  <%- include('partials/footer') %>
+    <%- include('partials/footer') %>
+
+  </main>
+
 
 </body>
 
