@@ -5,12 +5,26 @@ import passport from 'passport';
 import flash from 'express-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
+import mongoose from 'mongoose';
 import { User } from './types/user';
 import initPassport from './passport-config';
 
 if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
   require('dotenv').config();
 }
+
+// DB
+const devDbUrl = process.env.MONGO_URL;
+const url = process.env.MONGODB_URI || devDbUrl || '';
+const connectionParams = {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+};
+mongoose.connect(url, connectionParams)
+  .then(() => { console.log('Connected to DB.'); })
+  .catch((error) => { console.error('DB Error: ', error); });
 
 const users: User[] = [];
 initPassport(passport, (email: string): User | undefined => {
