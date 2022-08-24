@@ -36,16 +36,16 @@ const accountSchema = new mongoose.Schema({
   limit: Number,
   products: Array,
 });
-// FIXME: model and query
-const Account = mongoose.model('sample_analytics.accounts', accountSchema);
 
-// Account.find({ account_id: 261248 }, (err, results) => {
-//   if (err) {
-//     console.log('Error: ', err);
-//   } else {
-//     console.log('Results: ', results);
-//   }
-// });
+const Account = mongoose.model('accounts', accountSchema);
+
+Account.findOne({ account_id: 261248 }, (err: any, results: any) => {
+  if (err) {
+    console.log('Error: ', err);
+  } else {
+    console.log('Results: ', results);
+  }
+});
 
 // end DB
 const users: User[] = [];
