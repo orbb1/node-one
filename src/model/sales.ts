@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
+import { formatDate } from '../utils';
 
 const item = {
   name: String,
@@ -7,9 +8,9 @@ const item = {
   quantity: Number,
 };
 
-const salesSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId },
-  saleDate: { type: mongoose.Schema.Types.Date },
+const salesSchema = new Schema<ISale>({
+  _id: { type: Schema.Types.ObjectId },
+  saleDate: { type: Schema.Types.Date },
   items: { type: [item] },
   storeLocation: String,
   customer: {
@@ -21,7 +22,61 @@ const salesSchema = new mongoose.Schema({
   couponUsed: Boolean,
   purchaseMethod: String,
 });
-// sample_supplies.sales
-const Sales = mongoose.model('sales', salesSchema);
 
-export { Sales };
+const Sales = model<ISale>('sales', salesSchema);
+
+type SaleBase = {
+  items: {
+    name: string;
+    tags: string[];
+    price: number;
+    quantity: number;
+  }[];
+  storeLocation: string;
+  customer: {
+    gender: string;
+    age: number;
+    email: string;
+    satisfaction: number;
+  };
+  couponUsed: boolean;
+  purchaseMethod: string;
+};
+
+interface ISale extends SaleBase, Document {
+  saleDate: Date;
+}
+interface ISaleVM extends SaleBase {
+  saleDate: string;
+}
+
+class Sale implements ISaleVM {
+  saleDate: string;
+  items: {
+    name: string;
+    tags: string[];
+    price: number;
+    quantity: number;
+  }[];
+  storeLocation: string;
+  customer: {
+    gender: string;
+    age: number;
+    email: string;
+    satisfaction: number;
+  };
+  couponUsed: boolean;
+  purchaseMethod: string;
+  constructor(d: ISale) {
+    this.saleDate = formatDate(d.saleDate);
+    this.items = d.items;
+    this.storeLocation = d.storeLocation;
+    this.customer = d.customer;
+    this.couponUsed = d.couponUsed;
+    this.purchaseMethod = d.purchaseMethod;
+  }
+}
+
+const SalesFactory = (sales: ISale[]) => sales.map((s) => new Sale(s));
+
+export { Sales, Sale, SalesFactory };

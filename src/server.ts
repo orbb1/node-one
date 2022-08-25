@@ -8,7 +8,7 @@ import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import { User } from './types/user';
 import initPassport from './passport-config';
-import { Sales } from './model/sales';
+import { SalesFactory, Sales } from './model/sales';
 
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line global-require
@@ -87,7 +87,7 @@ app.get('/', pass, (_, res) => {
     if (err) {
       console.log('Error: ', err);
     } else {
-      res.render('index.ejs', { sales: result });
+      res.render('index.ejs', { sales: SalesFactory(result) });
     }
   }).limit(10);
 });
