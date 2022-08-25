@@ -43,7 +43,7 @@ type SaleBase = {
   purchaseMethod: string;
 };
 
-interface ISale extends SaleBase, Document {
+interface ISale extends SaleBase, Document<string> {
   saleDate: Date;
 }
 interface ISaleVM extends SaleBase {
@@ -51,6 +51,7 @@ interface ISaleVM extends SaleBase {
 }
 
 class Sale implements ISaleVM {
+  _id: string | undefined;
   saleDate: string;
   items: {
     name: string;
@@ -68,6 +69,7 @@ class Sale implements ISaleVM {
   couponUsed: boolean;
   purchaseMethod: string;
   constructor(d: ISale) {
+    this._id = d._id;
     this.saleDate = formatDate(d.saleDate);
     this.items = d.items;
     this.storeLocation = d.storeLocation;
