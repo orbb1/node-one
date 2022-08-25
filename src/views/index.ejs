@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
+  <%- include('partials/head') %>
 
-<%- include('partials/head') %>
-
-<body>
-  <%- include('partials/nav') %>
-  <h1>Hello <%=name%>!</h1>
-  <form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">Logout</button>
-  </form>
-  <%- include('partials/footer') %>
-</body>
-
+  <body>
+    <%- include('partials/nav') %>
+    <h1>Hello <%=name%>!</h1>
+    <form action="/logout?_method=DELETE" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+    <% if (sales.length) { %>
+    <div>
+      <% sales.forEach(element => { %>
+      <p><%= element.storeLocation %></p>
+      <% }); %>
+    </div>
+    <% } %>
+    <div><%- include('partials/footer') %></div>
+  </body>
 </html>
-
-
-
-
