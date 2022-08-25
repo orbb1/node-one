@@ -1,0 +1,37 @@
+<main>
+  <div class="container-fluid">
+    <h2>Sales table</h2>
+    <% if (sales.length) { %>
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">Sale date</th>
+            <th scope="col">Store location</th>
+            <th scope="col">Purchase method</th>
+            <th scope="col">Coupon</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sales.forEach((element, i) => { %>
+          <tr>
+            <th scope="row"><%= i %></th>
+            <td><%= element.saleDate %></td>
+            <td><%= element.storeLocation %></td>
+            <td><%= element.purchaseMethod %></td>
+            <td>
+              <% if (element.couponUsed) { %>
+              <i class="bi bi-check-circle text-success"></i>
+              <% } else { %>
+              <i class="bi bi-x-circle text-danger"></i>
+              <% } %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
+</main>

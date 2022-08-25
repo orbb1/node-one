@@ -87,7 +87,7 @@ app.get('/', pass, (_, res) => {
     if (err) {
       console.log('Error: ', err);
     } else {
-      res.render('index.ejs', { name: 'World', sales: result });
+      res.render('index.ejs', { sales: result });
     }
   }).limit(10);
 });
