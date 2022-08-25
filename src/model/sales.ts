@@ -79,4 +79,4 @@ class Sale implements ISaleVM {
 
 const SalesFactory = (sales: ISale[]) => sales.map((s) => new Sale(s));
 
-export { Sales, Sale, SalesFactory };
+export { Sales, SalesFactory };
