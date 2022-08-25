@@ -8,11 +8,13 @@ import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import { User } from './types/user';
 import initPassport from './passport-config';
+import { Sales } from './model/sales';
 
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line global-require
   require('dotenv').config();
 }
+
 // DB
 const devDbUrl = process.env.MONGO_URL;
 const url = process.env.MONGODB_URI || devDbUrl || '';
@@ -29,25 +31,8 @@ mongoose
   .catch((error) => {
     console.error('DB Error: ', error);
   });
-
-const accountSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId },
-  account_id: Number,
-  limit: Number,
-  products: Array,
-});
-
-const Account = mongoose.model('accounts', accountSchema);
-
-Account.findOne({ account_id: 261248 }, (err: any, results: any) => {
-  if (err) {
-    console.log('Error: ', err);
-  } else {
-    console.log('Results: ', results);
-  }
-});
-
 // end DB
+
 const users: User[] = [];
 initPassport(
   passport,
@@ -62,6 +47,8 @@ initPassport(
 );
 
 const app: Express = express();
+//  temp
+const pass = (req: any, res: any, next: any): void => next();
 
 const checkAuth = (req: any, res: any, next: any): void => {
   if (req.isAuthenticated()) {
@@ -95,8 +82,14 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname));
 
-app.get('/', checkAuth, (req, res) => {
-  res.render('index.ejs', { name: 'World' });
+app.get('/', pass, (req, res) => {
+  Sales.find({}, (err, result) => {
+    if (err) {
+      console.log('Error: ', err);
+    } else {
+      res.render('index.ejs', { name: 'World', sales: result });
+    }
+  }).limit(10);
 });
 
 app.get('/login', checkNoAuth, (req, res) => {
