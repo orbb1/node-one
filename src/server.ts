@@ -82,7 +82,7 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname));
 
-app.get('/', pass, (req, res) => {
+app.get('/', pass, (_, res) => {
   Sales.find({}, (err, result) => {
     if (err) {
       console.log('Error: ', err);
@@ -92,11 +92,11 @@ app.get('/', pass, (req, res) => {
   }).limit(10);
 });
 
-app.get('/login', checkNoAuth, (req, res) => {
+app.get('/login', checkNoAuth, (_, res) => {
   res.render('login.ejs');
 });
 
-app.get('/register', checkNoAuth, (req, res) => {
+app.get('/register', checkNoAuth, (_, res) => {
   res.render('register.ejs');
 });
 
