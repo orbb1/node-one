@@ -31,42 +31,38 @@
           <% }); %>
         </tbody>
       </table>
-      <nav aria-label="Table pagination">
-        <ul class="pagination">
-          <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
-            <a
-              class="page-link"
-              href="<%= `/dashboard?limit=${limit}&page=${page-1}` %>"
-              >Previous</a
-            >
-          </li>
-          <% let i = page < 5 ? 1 : page - 3 %> <% for (; i <= page + 3 && i <=
-          count/limit; i++) { %>
-          <li class="page-item <%= page === i ? 'disabled' : '' %>">
-            <a
-              class="page-link"
-              href="<%= `/dashboard?limit=${limit}&page=${i}` %>"
-            >
-              <%= i %>
-            </a>
-          </li>
-          <% } %>
-          <li class="page-item <%= page === count/limit ? 'disabled' : '' %>">
-            <a
-              class="page-link"
-              href="<%= `/dashboard?limit=${limit}&page=${page+1}` %>"
-              >Next</a
-            >
-          </li>
-        </ul>
-      </nav>
+      <div class="d-flex justify-content-center">
+        <nav aria-label="Table pagination">
+          <ul class="pagination">
+            <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${page-1}` %>"
+                >Previous</a
+              >
+            </li>
+            <% let i = page < 5 ? 1 : page - 3 %> <% for (; i <= page + 3 && i
+            <= count/limit; i++) { %>
+            <li class="page-item <%= page === i ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${i}` %>"
+              >
+                <%= i %>
+              </a>
+            </li>
+            <% } %>
+            <li class="page-item <%= page === count/limit ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${page+1}` %>"
+                >Next</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
     <% } %>
-  </div>
-  <div>
-    count, page, limit
-    <p><%= count %></p>
-    <p><%= page %></p>
-    <p><%= limit %></p>
   </div>
 </main>
