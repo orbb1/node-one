@@ -95,7 +95,14 @@ app.get('/dashboard', pass, (req, res) => {
     if (err) {
       console.log('Error: ', err);
     } else {
-      res.render('index.ejs', { sales: SalesFactory(result) });
+      Sales.countDocuments({}).exec((_, count) => {
+        res.render('index.ejs', {
+          sales: SalesFactory(result),
+          count,
+          page: Number(page),
+          limit: Number(limit),
+        });
+      });
     }
   })
     .limit(Number(limit))
