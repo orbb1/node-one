@@ -16,6 +16,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // DB
+const LIMIT = '10';
+const PAGE = '1';
 const devDbUrl = process.env.MONGO_URL;
 const url = process.env.MONGODB_URI || devDbUrl || '';
 const connectionParams = {
@@ -82,14 +84,22 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname));
 
-app.get('/', pass, (_, res) => {
+app.get('/', (_, res) => {
+  return res.redirect('/dashboard');
+});
+
+app.get('/dashboard', pass, (req, res) => {
+  const { limit = LIMIT, page = PAGE } = req.query;
+
   Sales.find({}, (err, result) => {
     if (err) {
       console.log('Error: ', err);
     } else {
       res.render('index.ejs', { sales: SalesFactory(result) });
     }
-  }).limit(10);
+  })
+    .limit(Number(limit))
+    .skip((Number(page) - 1) * Number(limit));
 });
 
 app.get('/login', checkNoAuth, (_, res) => {
