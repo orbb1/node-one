@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import { User } from './types/user';
 import initPassport from './passport-config';
 import { SalesFactory, Sales } from './model/sales';
+import { getSortParams } from './utils';
 
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line global-require
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 // DB
 const LIMIT = '10';
 const PAGE = '1';
+const SORT = 'saleDate:1';
 const devDbUrl = process.env.MONGO_URL;
 const url = process.env.MONGODB_URI || devDbUrl || '';
 const connectionParams = {
@@ -89,24 +91,28 @@ app.get('/', (_, res) => {
 });
 
 app.get('/dashboard', pass, (req, res) => {
-  const { limit = LIMIT, page = PAGE } = req.query;
+  const { limit = LIMIT, page = PAGE, sort = SORT } = req.query;
+  const sortObj = getSortParams(sort as string);
 
   Sales.find({}, (err, result) => {
     if (err) {
       console.log('Error: ', err);
     } else {
       Sales.countDocuments({}).exec((_, count) => {
+        // TODO: ViewModel factory
         res.render('index.ejs', {
           sales: SalesFactory(result),
           count,
           page: Number(page),
           limit: Number(limit),
+          sort: sortObj,
         });
       });
     }
   })
     .limit(Number(limit))
-    .skip((Number(page) - 1) * Number(limit));
+    .skip((Number(page) - 1) * Number(limit))
+    .sort(sortObj);
 });
 
 app.get('/login', checkNoAuth, (_, res) => {
