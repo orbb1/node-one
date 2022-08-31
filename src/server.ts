@@ -90,9 +90,10 @@ app.get('/', (_, res) => {
   return res.redirect('/dashboard');
 });
 
-app.get('/dashboard', pass, (req, res) => {
+app.get('/dashboard', checkAuth, (req, res) => {
   const { limit = LIMIT, page = PAGE, sort = SORT } = req.query;
   const sortObj = getSortParams(sort as string);
+  const parsedLimit = isNaN(Number(limit)) ? Number(LIMIT) : Number(limit);
 
   Sales.find({}, (err, result) => {
     if (err) {
@@ -110,7 +111,7 @@ app.get('/dashboard', pass, (req, res) => {
       });
     }
   })
-    .limit(Number(limit))
+    .limit(parsedLimit)
     .skip((Number(page) - 1) * Number(limit))
     .sort(sortObj);
 });

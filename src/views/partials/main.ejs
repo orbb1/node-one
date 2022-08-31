@@ -11,12 +11,12 @@
               <div class="d-flex justify-content-between">
                 <span>Sale date</span>
                 <div>
-                  <a href="/dashboard?sort=saleDate:1"
+                  <a href="<%= `/dashboard?limit=${limit}&sort=saleDate:1` %>"
                     ><i
                       class="bi <%= sort.saleDate === '1' ? 'bi-caret-up-fill' : 'bi-caret-up' %>"
                     ></i
                   ></a>
-                  <a href="/dashboard?sort=saleDate:-1">
+                  <a href="<%= `/dashboard?limit=${limit}&sort=saleDate:-1` %>">
                     <i
                       class="bi <%= sort.saleDate === '-1' ? 'bi-caret-down-fill' : 'bi-caret-down' %>"
                     ></i>
@@ -28,12 +28,15 @@
               <div class="d-flex justify-content-between">
                 <span>Store location</span>
                 <div>
-                  <a href="/dashboard?sort=storeLocation:1"
+                  <a
+                    href="<%= `/dashboard?limit=${limit}&sort=storeLocation:1` %>"
                     ><i
                       class="bi <%= sort.storeLocation === '1' ? 'bi-caret-up-fill' : 'bi-caret-up' %>"
                     ></i
                   ></a>
-                  <a href="/dashboard?sort=storeLocation:-1">
+                  <a
+                    href="<%= `/dashboard?limit=${limit}&sort=storeLocation:-1` %>"
+                  >
                     <i
                       class="bi <%= sort.storeLocation === '-1' ? 'bi-caret-down-fill' : 'bi-caret-down' %>"
                     ></i>
