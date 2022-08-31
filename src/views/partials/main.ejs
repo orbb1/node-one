@@ -38,8 +38,9 @@
               <a
                 class="page-link"
                 href="<%= `/dashboard?limit=${limit}&page=${page-1}` %>"
-                >Previous</a
               >
+                Previous
+              </a>
             </li>
             <% let i = page < 5 ? 1 : page - 3 %> <% for (; i <= page + 3 && i
             <= count/limit; i++) { %>
@@ -56,11 +57,35 @@
               <a
                 class="page-link"
                 href="<%= `/dashboard?limit=${limit}&page=${page+1}` %>"
-                >Next</a
               >
+                Next
+              </a>
             </li>
           </ul>
         </nav>
+        <form class="ms-4 w-25" action="/dashboard" method="GET">
+          <div class="row">
+            <label for="limitSelect" class="col-sm-3 col-form-label">
+              Show items:
+            </label>
+            <select
+              class="form-select col-sm-3 w-25"
+              aria-label="Default select example"
+              id="limitSelect"
+              value="<%= limit.toString() %>"
+              name="limit"
+            >
+              <% [10, 20, 30].forEach((val) => {%> <% if (val === limit) { %>
+              <option selected><%= val %></option>
+              <% } else { %>
+              <option><%= val %></option>
+              <% } %> <% }); %>
+            </select>
+            <div class="col-sm-3">
+              <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <% } %>

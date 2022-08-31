@@ -25,31 +25,6 @@ body {
   font-size: 0.8rem;
 }
 
-/* Navigation */
-
-.nav {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  background-color: #ffeb00;
-  margin: 0;
-  padding: 0;
-  border-bottom: 2px solid #000;
-}
-
-.nav__item {
-  margin: var(--middle-margin);
-}
-
-.nav__item > a {
-  color: var(--basic-text);
-}
-
-.nav__item > a:hover {
-  font-weight: 600;
-}
-
 /* Login page */
 
 .login-section {
