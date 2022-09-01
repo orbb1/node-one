@@ -1,0 +1,53 @@
+/* Variables */
+
+:root {
+  --small-margin: 0.5rem;
+  --middle-margin: 1rem;
+  --large-margin: 2rem;
+  --basic-text: #000;
+}
+
+/* General */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.error-message {
+  color: #b71313;
+  font-size: 0.8rem;
+}
+
+/* Login page */
+
+.login-section {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form-container {
+  border: 10px solid #000;
+  padding: 0 var(--middle-margin) var(--middle-margin);
+  min-width: 30%;
+}
+
+.login-form .form-row {
+  margin: var(--middle-margin) 0;
+}
+
+.login-form .form-row-label {
+  display: block;
+}
+
+.form-info {
+  font-size: 0.8rem;
+}

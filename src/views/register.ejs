@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('partials/head') %>
+
+<body>
+
+  <%- include('partials/nav') %>
+
+  <section>
+    <h1>Register</h1>
+    <form action="/register" method="POST">
+      <label>
+        Name
+        <input type="text" name="username" />
+      </label>
+      <label>
+        email
+        <input type="email" name="email" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" />
+      </label>
+      <button type="submit">Register</button>
+    </form>
+  </section>
+
+  <%- include('partials/footer') %>
+</body>
+
+</html>
+
+
+
+

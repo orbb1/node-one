@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('partials/head') %>
+
+<body>
+  <main class="page">
+
+    <%- include('partials/nav') %>
+
+    <section class="login-section">
+      <div class="login-form-container">
+        <h1>Login form</h1>
+        <% if (messages.error) {%>
+          <p class="error-message">
+            <%= messages.error -%>
+          </p>
+        <% } %>
+        <p class="form-info">* - required</p>
+        <form class="login-form" action="/login" method="POST">
+          <div class="form-row">
+            <label class="form-row-label" for="email-input">
+              E-mail*
+            </label>
+            <input id="email-input" type="email" name="email" />
+          </div>
+          <div class="form-row">
+            <label class="form-row-label" for="password-input">
+              Password*
+            </label>
+            <input id="password-input" type="password" name="password" />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+  </main>
+
+
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,128 @@
+<main>
+  <div class="container-fluid">
+    <h2>Sales table</h2>
+    <% if (sales.length) { %>
+    <div>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">
+              <div class="d-flex justify-content-between">
+                <span>Sale date</span>
+                <div>
+                  <a href="<%= `/dashboard?limit=${limit}&sort=saleDate:1` %>"
+                    ><i
+                      class="bi <%= sort.saleDate === '1' ? 'bi-caret-up-fill' : 'bi-caret-up' %>"
+                    ></i
+                  ></a>
+                  <a href="<%= `/dashboard?limit=${limit}&sort=saleDate:-1` %>">
+                    <i
+                      class="bi <%= sort.saleDate === '-1' ? 'bi-caret-down-fill' : 'bi-caret-down' %>"
+                    ></i>
+                  </a>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-between">
+                <span>Store location</span>
+                <div>
+                  <a
+                    href="<%= `/dashboard?limit=${limit}&sort=storeLocation:1` %>"
+                    ><i
+                      class="bi <%= sort.storeLocation === '1' ? 'bi-caret-up-fill' : 'bi-caret-up' %>"
+                    ></i
+                  ></a>
+                  <a
+                    href="<%= `/dashboard?limit=${limit}&sort=storeLocation:-1` %>"
+                  >
+                    <i
+                      class="bi <%= sort.storeLocation === '-1' ? 'bi-caret-down-fill' : 'bi-caret-down' %>"
+                    ></i>
+                  </a>
+                </div>
+              </div>
+            </th>
+            <th scope="col">Purchase method</th>
+            <th scope="col">Coupon</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sales.forEach((element, i) => { %>
+          <tr>
+            <th scope="row"><%= i+1 %></th>
+            <td><%= element.saleDate %></td>
+            <td><%= element.storeLocation %></td>
+            <td><%= element.purchaseMethod %></td>
+            <td>
+              <% if (element.couponUsed) { %>
+              <i class="bi bi-check-circle text-success"></i>
+              <% } else { %>
+              <i class="bi bi-x-circle text-danger"></i>
+              <% } %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center">
+        <nav aria-label="Table pagination">
+          <ul class="pagination">
+            <li class="page-item <%= page === 1 ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${page-1}` %>"
+              >
+                Previous
+              </a>
+            </li>
+            <% let i = page < 5 ? 1 : page - 3 %> <% for (; i <= page + 3 && i
+            <= count/limit; i++) { %>
+            <li class="page-item <%= page === i ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${i}` %>"
+              >
+                <%= i %>
+              </a>
+            </li>
+            <% } %>
+            <li class="page-item <%= page === count/limit ? 'disabled' : '' %>">
+              <a
+                class="page-link"
+                href="<%= `/dashboard?limit=${limit}&page=${page+1}` %>"
+              >
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <form class="ms-4 w-25" action="/dashboard" method="GET">
+          <div class="row">
+            <label for="limitSelect" class="col-sm-3 col-form-label">
+              Show items:
+            </label>
+            <select
+              class="form-select col-sm-3 w-25"
+              aria-label="Default select example"
+              id="limitSelect"
+              value="<%= limit.toString() %>"
+              name="limit"
+            >
+              <% [10, 20, 30].forEach((val) => {%> <% if (val === limit) { %>
+              <option selected><%= val %></option>
+              <% } else { %>
+              <option><%= val %></option>
+              <% } %> <% }); %>
+            </select>
+            <div class="col-sm-3">
+              <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</main>
